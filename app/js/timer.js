@@ -9,7 +9,8 @@ var timerModule = angular.module('timer', [])
         endTimeAttr: '=endTime',
         countdownattr: '=countdown',
         autoStart: '&autoStart',
-        maxTimeUnit: '='
+        maxTimeUnit: '=',
+        onTimerStoped: '&'
       },
       controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
 
@@ -88,6 +89,7 @@ var timerModule = angular.module('timer', [])
         $scope.stop = $scope.pause = $element[0].stop = $element[0].pause = function () {
           var timeoutId = $scope.timeoutId;
           $scope.clear();
+          $scope.onTimerStoped();
           $scope.$emit('timer-stopped', {timeoutId: timeoutId, millis: $scope.millis, seconds: $scope.seconds, minutes: $scope.minutes, hours: $scope.hours, days: $scope.days});
         };
 
